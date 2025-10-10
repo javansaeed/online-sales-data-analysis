@@ -1,25 +1,30 @@
-name: Run Sales Analysis
+name: Run Data Analysis
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'sales_data.csv'
+      - 'analysis.py'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout repo
       uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.10'
 
     - name: Install dependencies
-      run: pip install pandas matplotlib
+      run: |
+        pip install pandas matplotlib
 
-    - name: Run analysis script
-      run: python src/analysis.py
+    - name: Run analysis
+      run: |
+        python analysis.py
+
