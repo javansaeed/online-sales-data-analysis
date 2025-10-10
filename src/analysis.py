@@ -3,30 +3,29 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-base_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(base_dir, '..', 'data', 'sales_data.csv')
-data = pd.read_csv(csv_path)
 
 
 # Initial review
-print("✅ Data loaded successfully!")
-print(data.head())
+
 
 # Simple analysis: Total sales by category
-summary = data.groupby('category')['sales'].sum().reset_index()
-summary = summary.rename(columns={'sales': 'Total Sales'})
+base_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(base_dir, '..', 'data', 'sales_data.csv')
 # Save summary to new file
-summary.to_csv('sales_summary.csv', index=False)
-print("📁 Saved summary to sales_summary.csv")
 
+data['sales'] = data['quantity'] * data['price']
+print("💰 Total Revenue by Category:")
+print(summary)
 # Draw a chart
-plt.figure(figsize=(6,4))
-plt.bar(summary['category'], summary['sales'], color='skyblue')
-plt.title('Total Sales by Category')
+plt.figure(figsize=(6, 4))
+plt.bar(summary['category'], summary['Total Sales'], color='skyblue')
+plt.title('Sales by Category')
 plt.xlabel('Category')
-plt.ylabel('Sales')
+plt.ylabel('Total Sales ($)')
+plt.tight_layout()
 
 # save chart
-plt.tight_layout()
-plt.savefig('sales_chart.png')
-print("🖼️ Chart saved as sales_chart.png")
+output_path = os.path.join(base_dir, '..', 'output', 'sales_by_category.png')
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+plt.savefig(output_path)
+print(f"📊 Chart saved to: {output_path}")
