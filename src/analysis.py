@@ -1,24 +1,28 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Read sales data
-df = pd.read_csv("data/sales_data.csv")
+# Load the dataset
+data = pd.read_csv('sales_data.csv')
 
-# Calculate total revenue
-df["total"] = df["quantity"] * df["price"]
+# Initial review
+print("✅ Data loaded successfully!")
+print(data.head())
 
-# Total revenue
-print("💰 Total Revenue:", df["total"].sum())
+# Simple analysis: Total sales by category
+summary = data.groupby('category')['sales'].sum().reset_index()
 
-# Sales by product
-top_products = df.groupby("product")["total"].sum().sort_values(ascending=False)
-print("\n🏆 Sales by Product:")
-print(top_products)
+# Save summary to new file
+summary.to_csv('sales_summary.csv', index=False)
+print("📁 Saved summary to sales_summary.csv")
 
-# Plot sales by product
-top_products.plot(kind='bar', color='skyblue')
-plt.title("💵 Total Sales by Product")
-plt.xlabel("Product")
-plt.ylabel("Revenue ($)")
+# Draw a chart
+plt.figure(figsize=(6,4))
+plt.bar(summary['category'], summary['sales'], color='skyblue')
+plt.title('Total Sales by Category')
+plt.xlabel('Category')
+plt.ylabel('Sales')
+
+# save chart
 plt.tight_layout()
-plt.show()
+plt.savefig('sales_chart.png')
+print("🖼️ Chart saved as sales_chart.png")
