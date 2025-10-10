@@ -1,0 +1,19 @@
+# 🧾 Online Sales Data Analysis
+
+This project demonstrates how to analyze **online sales data** using Python.
+
+## 🔍 What it does
+- Loads sales data from a CSV file  
+- Calculates total revenue and top-selling products  
+- Visualizes simple results
+
+## 🛠️ Tools used
+- Python 🐍  
+- Pandas  
+- Matplotlib  
+- CSV sample data  
+
+## 🚀 How to run
+1. Download the repository
+2. Run:
+   ```bash
