@@ -1,8 +1,8 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-import os
 base_dir = os.path.dirname(os.path.abspath(__file__))
 csv_path = os.path.join(base_dir, '..', 'data', 'sales_data.csv')
 data = pd.read_csv(csv_path)
@@ -14,7 +14,7 @@ print(data.head())
 
 # Simple analysis: Total sales by category
 summary = data.groupby('category')['sales'].sum().reset_index()
-
+summary = summary.rename(columns={'sales': 'Total Sales'})
 # Save summary to new file
 summary.to_csv('sales_summary.csv', index=False)
 print("📁 Saved summary to sales_summary.csv")
