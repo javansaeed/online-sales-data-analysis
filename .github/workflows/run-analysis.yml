@@ -41,16 +41,15 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    # ✅ ایجاد branch جدید و commit خروجی‌ها
-    - name: Create branch and commit output
+    # ✅ ایجاد branch یکتا و commit خروجی‌ها
+    - name: Create unique branch and commit output
       run: |
-        git checkout -b update-output || git checkout update-output
-        git add output/ || echo "No output changes"
+        BRANCH_NAME="update-output-$(date +%s)"
+        git checkout -b $BRANCH_NAME
+        git add output/* || echo "No output changes"
+        git status
         git commit -m "Update analysis output [skip ci]" || echo "No changes to commit"
-
-    # ✅ Push branch جدید
-    - name: Push branch
-      run: git push origin update-output || echo "Push failed"
+        git push origin $BRANCH_NAME
 
     # ✅ ایجاد Pull Request اتوماتیک
     - name: Create Pull Request
@@ -61,5 +60,5 @@ jobs:
           --title "Update analysis output" \
           --body "Automatically generated CSV and charts" \
           --base main \
-          --head update-output \
+          --head $BRANCH_NAME \
           --repo ${{ github.repository }} || echo "PR may already exist"
