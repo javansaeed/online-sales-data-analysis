@@ -9,7 +9,15 @@ csv_path = os.path.join(base_dir, '..', 'data', 'sales_data.csv')
 # 1️⃣ خواندن داده‌ها
 data = pd.read_csv(csv_path)
 print("✅ Data loaded successfully!")
+print("📄 Input Data:")
 print(data.head())
+
+# ذخیره جدول ورودی در فایل CSV خروجی
+output_data_path = os.path.join(base_dir, '..', 'output', 'input_data_output.csv')
+os.makedirs(os.path.dirname(output_data_path), exist_ok=True)
+data.to_csv(output_data_path, index=False)
+print(f"✅ Input data saved to: {output_data_path}")
+
 
 # 2️⃣ ایجاد ستون مجموع فروش
 data['sales'] = data['quantity'] * data['price']
@@ -21,6 +29,11 @@ summary = summary.rename(columns={'sales': 'Total Sales'})
 # 4️⃣ چاپ نتایج در خروجی
 print("💰 Total Revenue by Category:")
 print(summary)
+
+# ذخیره جدول تحلیلی در CSV
+output_summary_path = os.path.join(base_dir, '..', 'output', 'sales_summary.csv')
+summary.to_csv(output_summary_path, index=False)
+print(f"✅ Summary data saved to: {output_summary_path}")
 
 # 5️⃣ رسم نمودار فروش بر اساس دسته‌بندی
 plt.figure(figsize=(6, 4))
