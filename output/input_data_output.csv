@@ -1,6 +1,7 @@
 product,quantity,price,category,run_id
-Shirt,14,15,0,232219ce-d995-4c96-8a33-4064d95bed51
-Shoes,12,25,0,232219ce-d995-4c96-8a33-4064d95bed51
-Hat,8,10,0,232219ce-d995-4c96-8a33-4064d95bed51
-Shirt,4,205,0,232219ce-d995-4c96-8a33-4064d95bed51
-Shoes,1,25,0,232219ce-d995-4c96-8a33-4064d95bed51
+Shirt,14,15,1,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
+Shoes,12,25,2,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
+Hat,8,10,2,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
+T_Shirt,4,205,1,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
+S_Shoes,1,25,2,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
+car,10,1000,3,c5aadfdb-d278-4a81-9a78-92d16a68d5ff
