@@ -46,7 +46,8 @@ jobs:
       run: |
         BRANCH_NAME="update-output-$(date +%s)"
         git checkout -b $BRANCH_NAME
-        git add output/* || echo "No output changes"
+        # add همه فایل‌ها با force
+        git add -f output/*
         git status
         git commit -m "Update analysis output [skip ci]" || echo "No changes to commit"
         git push origin $BRANCH_NAME
