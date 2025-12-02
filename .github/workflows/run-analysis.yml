@@ -8,46 +8,58 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # 👈 اجازه commit و PR
+  contents: write  # اجازه commit و PR
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+    # ✅ دریافت کد repository
     - name: Checkout repo
       uses: actions/checkout@v4
 
+    # ✅ نصب Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
+    # ✅ نصب کتابخانه‌های لازم
     - name: Install dependencies
       run: |
         pip install pandas matplotlib gh
 
+    # ✅ اجرای اسکریپت تحلیل
     - name: Run analysis
       run: |
         python src/analysis.py
 
+    # ✅ پیکربندی Git برای commit
     - name: Configure Git
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+    # ✅ ایجاد branch جدید و commit خروجی‌ها
     - name: Create branch and commit output
       run: |
         git checkout -b update-output || git checkout update-output
-        git add output/
+        git add output/ || echo "No output changes"
         git commit -m "Update analysis output [skip ci]" || echo "No changes to commit"
 
+    # ✅ Push branch جدید
     - name: Push branch
       run: git push origin update-output || echo "Push failed"
 
+    # ✅ ایجاد Pull Request اتوماتیک
     - name: Create Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh auth login --with-token <<< $GITHUB_TOKEN
-        gh pr create --title "Update analysis output" --body "Automatically generated CSV and charts" --base main --head update-output || echo "PR may already exist"
+        gh pr create \
+          --title "Update analysis output" \
+          --body "Automatically generated CSV and charts" \
+          --base main \
+          --head update-output \
+          --repo ${{ github.repository }} || echo "PR may already exist"
