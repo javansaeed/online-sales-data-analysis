@@ -1,6 +1,7 @@
 product,quantity,price,category
-Shirt,14,15,0
-Shoes,12,25,0
-Hat,8,10,0
-Shirt,4,205,0
-Shoes,1,25,0
+Shirt,14,15,1
+Shoes,12,25,2
+Hat,8,10,2
+T_Shirt,4,205,1
+S_Shoes,1,25,2
+car,10,1000,3
